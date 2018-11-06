@@ -65,9 +65,32 @@ div#publicMessage {
     width: 90%;
 }
 
-input#inputText {
+.chat-wrapper button {
+    margin: 0 4px;
+    height: 42px;
+    padding: 0px 10px;
+    overflow: visible;
+    font-size: 16px;
+    vertical-align: top;
+}
+
+.chat-wrapper button#sendPrivateMessageBtn {
+    background-color: #404880;
+}
+
+.chat-wrapper input#inputTextName {
+    padding: 6px 10px;
+    margin-bottom: 8px;
+    height: 20px;
+    width: 30%;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.chat-wrapper input#inputText {
     padding: 6px 10px;
     margin: 0;
+    height: 26px;
     width: 50%;
     font-size: 14px;
     line-height: 1.2;

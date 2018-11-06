@@ -4,14 +4,10 @@ let socket = io.connect('http://localhost:8020')
 
 class SocketTest {
   onPageLoad() {
-    socket.on("news", function(data) {
-      console.log(data);
-      socket.emit("other event", { my: "this is the data from client" });
-    });
-
-    socket.on("private message", function(from, msg) {
-      console.log("I received a private message by ", from, " saying ", msg);
-    });
+    // socket.on("news", function(data) {
+    //   console.log(data);
+    //   socket.emit("other event", { my: "this is the data from client" });
+    // });
 
     socket.on("join room notice", function(data) {
       console.log("data", data, "rooms: ", socket.rooms);
@@ -20,7 +16,13 @@ class SocketTest {
         console.log("already logged on front end");
         return (joinedRoomText.innerHTML += "");
       }
-      joinedRoomText.innerHTML += "<div><span>" + data.id + "</span>" + data.notice + " ," + new Date() + "</div>";
+      joinedRoomText.innerHTML += "<div><span>" + data.id + "</span> " + data.notice + " ," + new Date() + "</div>";
+    });
+
+    socket.on('private message', function(data) {
+      console.log('private message ...', data)
+      let privateMessageText = document.getElementById("publicMessage");
+      privateMessageText.innerHTML += "<i>You received a private message</i><br/>" + data.sender + ": " + data.message + "<br/>";
     });
 
     socket.on("send public message", function(data) {
@@ -44,13 +46,11 @@ class SocketTest {
     });
 
     let sendMessageTestBtn = document.getElementById("sendMessageTestRoom");
+    let sendPrivateMessageBtn = document.getElementById("sendPrivateMessageBtn");
     let noticeText = document.getElementById("joinNotice");
     sendMessageTestBtn.classList.remove("hidden");
+    sendPrivateMessageBtn.classList.remove("hidden");
     noticeText.classList.add("notice");
-  }
-
-  onInputChange() {
-    console.log("typing...");
   }
 
   sendMessage() {
@@ -73,6 +73,18 @@ class SocketTest {
     });
 
     return (inputValue.value = "");
+  }
+
+  sendPrivateMessage() {
+    let recipient = document.getElementById("inputTextName").value;
+    let inputValue = document.getElementById("inputText").value;
+    if (recipient) {
+      socket.emit("send private message", {
+        recipient,
+        sender: socket.id,
+        message: inputValue
+      });
+    }
   }
 }
 

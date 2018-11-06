@@ -16,10 +16,15 @@
     <div class="main">
         <h1>Simple Messaging App</h1>
         <div id="publicMessage"></div>
+        <div class="name-wrapper">
+            
+        </div>
         <div class="chat-wrapper">
-            <input type="text" id="inputText" onchange=window.socketTest.onInputChange() />
+            <input type="text" id="inputTextName" placeholder="Enter ID or name" /><br>
+            <input type="text" id="inputText" placeholder="Your message..." />
             <button onclick=window.socketTest.sendMessage()>Send Public Message</button>
             <button onclick=window.socketTest.sendMessageTestRoom() id="sendMessageTestRoom" class="hidden test-room-btn">Send Message to Test Room</button>
+            <button onclick=window.socketTest.sendPrivateMessage() id="sendPrivateMessageBtn" class="hidden test-room-btn">Send Private Message</button>
         </div>
         
     </div>

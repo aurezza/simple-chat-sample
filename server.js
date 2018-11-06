@@ -20,14 +20,6 @@ app.get('/', function(req, res) {
 });
 
 io.on('connection', function(socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('other event', function(data) {
-        console.log(data);
-    });
-
-    
-    socket.emit('private message', 'Stranger', 'You have the  goods?');
-
     socket.on('join test room', (data) => {
         let rooms = Object.keys(socket.rooms);
         console.log("romms", rooms, rooms.includes('test room'));
@@ -41,8 +33,8 @@ io.on('connection', function(socket) {
            
             io.to("test room").emit("join room notice", joinText);
             
-        })
-    })
+        });
+    });
 
     socket.on('send message', (data) => {
         console.log('the data: ', data)
@@ -50,13 +42,21 @@ io.on('connection', function(socket) {
           id: data.id,
           message: data.message
         });
-    })
+    });
 
     socket.on('send message test', (data) => {
         console.log('the data: ', data)
         let testRoomText = { id: data.id, message: data.message };
         io.to("test room").emit("send message test room", testRoomText);
-    })
+    });
+    
+    socket.on("send private message", (data) => {
+        console.log("private msg data", data, data.recipient);
+        io.to(data.recipient).emit("private message", {
+          message: data.message,
+          sender: data.sender
+        });
+    });
 
     socket.on('disconnect', (reason) => {
         if (reason === 'io server disconnect') {
