@@ -1,0 +1,7 @@
+{
+    "version": 2,
+    "name": "simple chat app",
+    "builds": [
+        { "src": "*.js", "use": "@now/node" }
+    ]
+}

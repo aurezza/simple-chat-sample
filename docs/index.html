@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Socket Test</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <script type='text/javascript' src='/app.js'></script>
+        <link rel="stylesheet" type="text/css" href="/style.css" />
+    </head>
+<body>
+    <div class="sidenav">
+        <button onclick=window.socketTest.onJoinTestRoom() class="test-room-btn">Join Test Room</button>
+        <div id="joinNotice"></div>
+    </div>
+    
+    <div class="main">
+        <h1>Simple Messaging App</h1>
+        <div id="publicMessage"></div>
+        <div class="name-wrapper">
+            
+        </div>
+        <div class="chat-wrapper">
+            <input type="text" id="inputTextName" placeholder="Enter ID or name" /><br>
+            <input type="text" id="inputText" placeholder="Your message..." />
+            <button onclick=window.socketTest.sendMessage()>Send Public Message</button>
+            <button onclick=window.socketTest.sendMessageTestRoom() id="sendMessageTestRoom" class="hidden test-room-btn">Send Message to Test Room</button>
+            <button onclick=window.socketTest.sendPrivateMessage() id="sendPrivateMessageBtn" class="hidden test-room-btn">Send Private Message</button>
+        </div>
+        
+    </div>
+    
+</body>
+
+<script>
+     window.socketTest.onPageLoad();
+</script>
+</html>
