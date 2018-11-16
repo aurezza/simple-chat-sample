@@ -1,7 +1,7 @@
 'use strict'
 
-// let socket = io.connect('https://aldunque.github.io/simple-chat-sample:8020')
-let socket = io.connect('https://localhost:8020')
+let socket = io.connect('https://aldunque.github.io:8020')
+// let socket = io.connect('https://localhost:8020')
 
 class SocketTest {
   onPageLoad() {
