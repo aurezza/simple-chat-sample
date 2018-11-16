@@ -68,9 +68,9 @@ div#publicMessage {
 .chat-wrapper button {
     margin: 0 4px;
     height: 42px;
-    padding: 0px 10px;
+    padding: 0px 4px;
     overflow: visible;
-    font-size: 16px;
+    font-size: .5em;
     vertical-align: top;
 }
 
