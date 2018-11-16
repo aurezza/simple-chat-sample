@@ -3,27 +3,40 @@ var app = require('express')();
 var https = require('https')
 // var server = require('http').Server(app);
 var server = https.createServer({
-    key: fs.readFileSync('key.pem', 'utf8'),
-  cert: fs.readFileSync('server.crt', 'utf8')
+    key: fs.readFileSync('./key.pem', 'utf8'),
+  cert: fs.readFileSync('./server.crt', 'utf8'),
     // key: fs.readFileSync('./csr.pem'),
     // cert: fs.readFileSync('./key.pem'),
-    // requestCert: false,
-    // rejectUnauthorized: false
-}, app)
+    requestCert: false,
+    rejectUnauthorized: false
+}, app);
 
-var io = require('socket.io').listen(server);
-
-server.listen(8020, function() {
-    console.log('running server...at 8020')
-});
-
+var io = require('socket.io')(server);
 var serveStatic = require('serve-static');
 var path = require('path')
 
 app.use(function(req, res, next) {
     req.io = io;
+    console.log('middleware firing...')
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept-Type');
+    res.header('Access-Control-Allow-Credentials', 'true');
     next();
 });
+
+
+server.listen(8020, function() {
+    console.log('running server...at 8020 asdfasdff')
+});
+
+// io.origins((origin, callback) => {
+//     console.log('origin', origin)
+//     if (origin !== 'https://localhost:8020/') {
+//         return callback('origin not allowed', false);
+//     }
+//     callback(null, true);
+//   });
+
 
 app.use(serveStatic(path.join(__dirname, 'public')))
 
