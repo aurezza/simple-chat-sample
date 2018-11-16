@@ -29,13 +29,13 @@ server.listen(8020, function() {
     console.log('running server...at 8020 asdfasdff')
 });
 
-// io.origins((origin, callback) => {
-//     console.log('origin', origin)
-//     if (origin !== 'https://localhost:8020/') {
-//         return callback('origin not allowed', false);
-//     }
-//     callback(null, true);
-//   });
+io.origins((origin, callback) => {
+    console.log('origin', origin)
+    if (origin !== 'https://aldunque.github.io/simple-chat-sample:8020') {
+        return callback('origin not allowed', false);
+    }
+    callback(null, true);
+  });
 
 
 app.use(serveStatic(path.join(__dirname, 'public')))
