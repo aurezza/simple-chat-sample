@@ -1,5 +1,14 @@
+var fs = require('fs');
 var app = require('express')();
-var server = require('http').Server(app);
+var https = require('https')
+// var server = require('http').Server(app);
+var server = https.createServer({
+    key: fs.readFileSync('./csr.pem'),
+    cert: fs.readFileSync('./key.pem'),
+    requestCert: false,
+    rejectUnauthorized: false
+}, app)
+
 var io = require('socket.io')(server);
 var serveStatic = require('serve-static');
 var path = require('path')
