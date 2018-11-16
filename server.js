@@ -25,13 +25,13 @@ app.use(function(req, res, next) {
 });
 
 
-server.listen(8020, function() {
+server.listen(3000, function() {
     console.log('running server...at 8020 asdfasdff')
 });
 
 io.origins((origin, callback) => {
     console.log('origin', origin)
-    if (origin !== 'https://aldunque.github.io:8020') {
+    if (origin !== 'https://localhost:3000/') {
         return callback('origin not allowed', false);
     }
     callback(null, true);
