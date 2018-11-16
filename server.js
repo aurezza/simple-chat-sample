@@ -3,10 +3,12 @@ var app = require('express')();
 var https = require('https')
 // var server = require('http').Server(app);
 var server = https.createServer({
-    key: fs.readFileSync('./csr.pem'),
-    cert: fs.readFileSync('./key.pem'),
-    requestCert: false,
-    rejectUnauthorized: false
+    key: fs.readFileSync('key.pem', 'utf8'),
+  cert: fs.readFileSync('server.crt', 'utf8')
+    // key: fs.readFileSync('./csr.pem'),
+    // cert: fs.readFileSync('./key.pem'),
+    // requestCert: false,
+    // rejectUnauthorized: false
 }, app)
 
 var io = require('socket.io').listen(server);
