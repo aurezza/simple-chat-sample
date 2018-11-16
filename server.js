@@ -9,7 +9,12 @@ var server = https.createServer({
     rejectUnauthorized: false
 }, app)
 
-var io = require('socket.io')(server);
+var io = require('socket.io').listen(server);
+
+server.listen(8020, function() {
+    console.log('running server...at 8020')
+});
+
 var serveStatic = require('serve-static');
 var path = require('path')
 
@@ -19,10 +24,6 @@ app.use(function(req, res, next) {
 });
 
 app.use(serveStatic(path.join(__dirname, 'public')))
-
-server.listen(8020, function() {
-    console.log('running server...at 8020')
-});
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
